@@ -22,18 +22,19 @@ This milestone focuses on developing the user login module using Streamlit.
 ## Screenshots
 
 ### Login Page
-![Login Page](login_page.png)
+![Login Page](screenshots/login_page.png)
 
 ### Invalid Credentials
-![Invalid Login](invalid_email_password.png)
+![Invalid Login](screenshots/invalid_email_password.png)
 
 ### Create Account
-![Create Account](create_a_account.png)
+![Create Account](screenshots/create_a_account.png)
 
 ### Reset Password
-![Reset Password](reset_password.png)
+![Reset Password](screenshots/reset_password.png)
 
 ### Main Page After Login
-![Main Page](main_page.png)
+![Main Page](screenshots/main_page.png)
+
 
 

@@ -54,7 +54,7 @@ if 'usernames' not in st.session_state:
 # --- Styling ---
 st.set_page_config(page_title="Infosys SpringBoard Intern", page_icon="🤖", layout="wide")
 
-st.markdown(\"""
+st.markdown("""
 <style>
 
 /* Full background image */
@@ -180,7 +180,7 @@ svg {
 }
 
 </style>
-\""", unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 
 

@@ -19,3 +19,21 @@ This milestone focuses on developing the user login module using Streamlit.
 2. Run the app:
    streamlit run app.py
 
+## Screenshots
+
+### Login Page
+![Login Page](login_page.png)
+
+### Invalid Credentials
+![Invalid Login](invalid_email_password.png)
+
+### Create Account
+![Create Account](create_a_account.png)
+
+### Reset Password
+![Reset Password](reset_password.png)
+
+### Main Page After Login
+![Main Page](main_page.png)
+
+

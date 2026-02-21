@@ -64,15 +64,13 @@ st.markdown("""
 }
 /* Main Heading */
 .main-title {
-    position: absolute;
-    top: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 48px;
+    font-size: 46px;
     font-weight: 800;
     color: white;
     letter-spacing: 2px;
     text-align: center;
+    margin-top: 10px;     /* 🔥 smaller = moves heading UP */
+    margin-bottom: -30px; /* 🔥 pulls white box closer */
     text-shadow: 0px 4px 20px rgba(0,0,0,0.8);
 }
 
@@ -92,12 +90,13 @@ st.markdown("""
 
 /* Title */
 .login-title {
-    font-size: 52px;
+    font-size: 38px;
     font-weight: 800;
-    margin-bottom: 50px;
+    margin-top: 10px;
+    margin-bottom: 15px;
     color: black;
+    text-align:center;
 }
-
 /* Label Styling */
 label {
     color: white !important;
@@ -173,8 +172,59 @@ div[data-testid="stAlert"] p {
 div[data-testid="stAlert"] > div {
     border: none !important;
 }
+/* CENTER LOGIN CARD */
+.login-card {
+    background: rgba(255,255,255,0.92);
+    padding: 45px;
+    border-radius: 18px;
+    box-shadow: 0px 20px 60px rgba(0,0,0,0.45);
+    max-width: 520px;
+    margin: auto;
+}
 
 
+
+/* FIX INPUT SIZE */
+div[data-baseweb="input"] {
+    margin-bottom: 18px;
+}
+
+/* LOGIN BUTTON MODERN */
+.stButton>button {
+    background: linear-gradient(90deg,#ff9800,#ff6a00);
+    color: white;
+    border-radius: 10px;
+    height: 52px;
+    font-size: 18px;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.stButton>button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 10px 20px rgba(0,0,0,0.4);
+}
+/* CRITICAL FIX FOR STREAMLIT WIDTH */
+.block-container {
+    max-width: 1000px;
+    padding-top: 0rem;   /* remove extra top gap */
+}
+
+/* LOGIN CARD */
+.login-card {
+    background: rgba(255,255,255,0.95);
+    padding: 40px;
+    border-radius: 18px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    margin-top: -20px;
+}
+/* FORCE LOGIN PAGE TO CENTER VERTICALLY */
+section.main > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 80vh;
+}
 svg {
     fill: #555 !important;
 }
@@ -189,18 +239,19 @@ def login_page():
 
     # Main Title
     st.markdown(
-        "<div class='main-title'>Infosys SpringBoard Intern</div>",
-        unsafe_allow_html=True
-    )
+    "<h1 class='main-title'>Infosys SpringBoard Intern</h1>",unsafe_allow_html=True)
+    
+    
+    col1, col2, col3 = st.columns([1,2,1])
+    with col2:
+      
+      st.markdown("<div class='login-card'>", unsafe_allow_html=True)
+      st.markdown("<div class='login-title'>Sign In</div>", unsafe_allow_html=True)
+      with st.form("login_form"):
 
-    st.markdown("<div class='login-wrapper'>", unsafe_allow_html=True)
-    st.markdown("<div class='login-card'>", unsafe_allow_html=True)
-
-    st.markdown("<div class='login-title'>Sign In</div>", unsafe_allow_html=True)
-
-    with st.form("login_form"):
         email = st.text_input("EMAIL ID")
         password = st.text_input("PASSWORD", type="password")
+
         submitted = st.form_submit_button("Login")
 
         if submitted:
@@ -211,12 +262,13 @@ def login_page():
                 st.rerun()
             else:
                 st.error("Invalid email or password")
+      st.markdown("</div>", unsafe_allow_html=True)
+
+    
 
     st.markdown("<a href='#' style='color:#007cc3;'>Forgot Password?</a>", unsafe_allow_html=True)
 
-    st.markdown("</div>", unsafe_allow_html=True)
-    st.markdown("</div>", unsafe_allow_html=True)
-
+   
     st.markdown("---")
     c1, c2 = st.columns(2)
     with c1:
@@ -239,9 +291,8 @@ def signup_page():
             email = st.text_input("Email Address (@domain.com required)")
             password = st.text_input("Password (min 8 chars, alphanumeric)")
             confirm_password = st.text_input("Confirm Password", type="password")
-            security_question = st.selectbox("Select Security Question",["What is your pet's name?","What is your favorite teacher's name?","What is your birthplace?","What is your favorite sport?"])
+            security_question = st.selectbox("Select Security Question",["SELECT QUESTION","What is your pet's name?","What is your favorite teacher's name?","What is your birthplace?","What is your favorite sport?"])
             security_answer = st.text_input("Security Answer")
-
             submitted = st.form_submit_button("Sign Up")
 
             if submitted:
@@ -270,6 +321,12 @@ def signup_page():
                 # Confirm Password
                 if password != confirm_password:
                     errors.append("Passwords do not match.")
+                    # Security Question Validation
+                if security_question == "SELECT QUESTION":
+                  errors.append("Please select a security question.")
+                    # Security Answer Validation
+                if not security_answer:
+                  errors.append("Security answer is mandatory.")
 
                 if errors:
                     for error in errors:
@@ -416,3 +473,7 @@ else:
         forgot_password_page()
     else:
         login_page()
+
+with open("app.py", "w") as f:
+    f.write(app_code)
+print("Streamlit app code written to 'app.py'")

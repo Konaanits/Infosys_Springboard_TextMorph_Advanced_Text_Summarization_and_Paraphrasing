@@ -36,7 +36,7 @@ if 'db_initialized' not in st.session_state:
     st.session_state['db_initialized'] = True
 
 # --- UI Theme (Neon Style) ---
-st.set_page_config(page_title="Infosys LLM Secure Auth", page_icon="⚡", layout="wide")
+st.set_page_config(page_title="Smart Readability & Text Analysis System", page_icon="🧠", layout="wide")
 
 def apply_neon_theme():
     st.markdown("""
@@ -494,9 +494,9 @@ def verify_otp_token(token, input_otp, email):
 # --- Email Logic ---
 def send_email(to_email, otp, app_pass=None):
     msg = MIMEMultipart()
-    msg['From'] = f"Infosys LLM <{EMAIL_ADDRESS}>"
+    msg['From'] = f"Read Wise AI <{EMAIL_ADDRESS}>"
     msg['To'] = to_email
-    msg['Subject'] = "🔐 Infosys LLM - Password Reset OTP"
+    msg['Subject'] = "🔐 Read Wise AI - Password Reset OTP"
     body = f"""
     <!DOCTYPE html><html><head><style>
     .container {{ font-family: Arial, Helvetica, sans-serif; background-color: #111827; padding: 40px; text-align: center; color: #ffffff; }}
@@ -506,11 +506,11 @@ def send_email(to_email, otp, app_pass=None):
     .text {{ color: #d1d5db; font-size: 16px; line-height: 1.6; margin-bottom: 22px; }}
     .footer {{ color: #6b7280; font-size: 12px; margin-top: 30px; }}
     </style></head><body><div class="container"><div class="card">
-    <div class="header">⚡ Infosys LLM Security</div>
+    <div class="header">🧠 Read Wise AI Security</div>
     <div class="text">Use this OTP to reset your password for <span style="color:#ffe8c2;">{to_email}</span>.</div>
     <div class="otp-box">{otp}</div>
     <div class="text">Valid for <strong>{OTP_EXPIRY_MINUTES} minutes</strong>.</div>
-    <div class="footer">&copy; 2026 Infosys LLM Secure Auth</div>
+    <div class="footer">&copy; 2026 Read Wise AI Secure Auth</div>
     </div></div></body></html>
     """
     msg.attach(MIMEText(body, 'html'))
@@ -564,7 +564,7 @@ def logout():
 # ========================================
 
 def login_page():
-    st.title("⚡ Infosys LLM")
+    st.title("🧠 Read Wise AI")
     st.markdown("### Secure Login")
 
     with st.form("login_form"):
@@ -581,7 +581,7 @@ def login_page():
             elif db.authenticate_user(email, password):
                 st.session_state['user'] = email
                 with st.spinner("Logging in..."):time.sleep(1)
-                st.toast(f"Welcome to Infosys LLM, {email}", icon="✅")
+                st.toast(f"Welcome to Read Wise AI, {email}", icon="✅")
                 st.rerun()
             else:
                 st.error("Invalid email or password.")
@@ -594,7 +594,7 @@ def login_page():
     if st.button("Forgot Password?"):switch_page("forgot")
 
 def register_page():
-    st.title("⚡ Infosys LLM")
+    st.title("🧠 Read Wise AI")
     st.markdown("### Create New Account")
 
     email = st.text_input("Email Address *")
@@ -630,7 +630,7 @@ def register_page():
     if st.button("Return to Login"): switch_page("login")
 
 def forgot_page():
-    st.title("⚡ Infosys LLM")
+    st.title("🧠 Read Wise AI")
     st.markdown("### Password Recovery")
 
     if 'stage' not in st.session_state: st.session_state['stage'] = 'email'
@@ -721,7 +721,7 @@ def forgot_page():
 
 def chat_page():
     if not st.session_state['user']: switch_page('login'); return
-    st.title("🤖 Infosys LLM Chat")
+    st.title("🤖 Read Wise AI Chat")
     if "messages" not in st.session_state: st.session_state.messages = []
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"]): st.markdown(msg["content"])
@@ -865,7 +865,7 @@ if st.session_state['user']:
         if st.session_state['user'] == "admin@llm.com":
             opts.append("Admin"); icons.append("shield-lock")
 
-        selected = option_menu("Infosys LLM", opts, icons=icons, menu_icon="cast", default_index=0,
+        selected = option_menu("Read Wise AI", opts, icons=icons, menu_icon="cast", default_index=0,
             styles={
     "container": {"background-color": "transparent"},
     "icon": {"color": "#ffe8c2"},
@@ -895,4 +895,3 @@ else:
     if st.session_state['page'] == 'login': login_page()
     elif st.session_state['page'] == 'register': register_page()
     elif st.session_state['page'] == 'forgot': forgot_page()
-
